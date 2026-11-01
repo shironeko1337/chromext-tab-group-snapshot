@@ -1,0 +1,3 @@
+- snapshots are stored locally outside of a session
+- if chrome has serializable metadata for a tab group, save it to TabGroup
+- ungrouped tabs are untouched
