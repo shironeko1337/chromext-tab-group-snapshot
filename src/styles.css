@@ -2,3 +2,16 @@
 @import "@heroui/styles";
 
 html, body { background: var(--background); color: var(--foreground); }
+
+/* Options dialog: the last row of each tab table adds a new tab.
+   Same hover background as HeroUI's ghost icon buttons. */
+.add-tab-row {
+  cursor: pointer;
+}
+.add-tab-row .table__cell {
+  transition: background-color 150ms;
+}
+.add-tab-row:hover .table__cell,
+.add-tab-row[data-hovered="true"] .table__cell {
+  background-color: var(--default);
+}

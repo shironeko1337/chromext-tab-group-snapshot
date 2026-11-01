@@ -1,12 +1,14 @@
 import { addSnapshot, getSnapshot } from './storage.js';
 import { assignNickname } from './nicknames.js';
+import { syncNow } from './sync.js';
 
 // Popup and options pages send messages here so long-running work
 // (opening tabs) is not cut off when the popup closes.
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   const handlers = {
-    save: () => saveCurrentGroups(msg.name ?? ''),
+    save: () => saveCurrentGroups(msg.name ?? '', msg.windowId),
     restore: () => restoreSnapshot(msg.id),
+    sync: () => syncNow(),
   };
   const handler = handlers[msg?.type];
   if (!handler) return false;
@@ -20,9 +22,10 @@ function tabUrl(tab) {
   return tab.url || tab.pendingUrl || '';
 }
 
-// Save every open tab group (all windows). Ungrouped tabs are ignored.
-async function saveCurrentGroups(name) {
-  const chromeGroups = await chrome.tabGroups.query({});
+// Save the open tab groups of one window, or of all windows when windowId is
+// not given. Ungrouped tabs are ignored.
+async function saveCurrentGroups(name, windowId) {
+  const chromeGroups = await chrome.tabGroups.query(windowId != null ? { windowId } : {});
   const groups = [];
   for (const cg of chromeGroups) {
     const tabs = await chrome.tabs.query({ groupId: cg.id });
@@ -109,3 +112,18 @@ async function applyMetadata(groupId, group) {
   if (typeof group.collapsed === 'boolean') props.collapsed = group.collapsed;
   await chrome.tabGroups.update(groupId, props);
 }
+
+// Auto sync: whenever snapshots change on this computer (from the popup, the
+// options page, or a sync itself), sync them with the Chrome account. A sync
+// that changes nothing writes nothing, so this settles after one round.
+// Turning auto sync on also syncs once.
+let syncTimer;
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== 'local') return;
+  const autoSync = (settings) => settings?.autoSync ?? true;
+  const turnedOn =
+    changes.settings && autoSync(changes.settings.newValue) && !autoSync(changes.settings.oldValue);
+  if (!changes.db && !turnedOn) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(syncNow, 500); // group quick successive changes
+});

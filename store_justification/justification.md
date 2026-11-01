@@ -8,7 +8,7 @@ Lets users save snapshots of their open Chrome tab groups and restore them later
 
 ## tabs justification
 
-Used to read the URL of each tab inside the user's tab groups when they save a snapshot, and to open the saved pages as new background tabs and move them into the right group when they restore one. When restoring into a group that is already open, the extension reads that group's tabs to see which saved pages are already present, so it only opens the missing ones and never closes or reloads existing tabs. It also listens for tab updates and closures only to keep a page nickname applied to the tab it was restored into. Tab URLs are stored only on the user's device and are never sent anywhere.
+Used to read the URL of each tab inside the user's tab groups when they save a snapshot, and to open the saved pages as new background tabs and move them into the right group when they restore one. When restoring into a group that is already open, the extension reads that group's tabs to see which saved pages are already present, so it only opens the missing ones and never closes or reloads existing tabs. It also listens for tab updates and closures only to keep a page nickname applied to the tab it was restored into. Tab URLs are stored on the user's device and, with auto sync on, in their own Chrome account. They are never sent to the developer.
 
 ## tabGroups justification
 
@@ -16,7 +16,7 @@ The core of the extension. Used to list the user's open tab groups and read each
 
 ## storage justification
 
-Snapshots are saved with chrome.storage.local, only on the user's device, so they survive browser restarts. A snapshot contains its name and save time, each group's name, color and collapsed state, and the URLs of the pages in each group with any nickname the user set. chrome.storage.session holds, while the browser is open, which restored tab has which nickname, so the nickname can be applied again if the page changes its own title. Nothing is synced or sent to the developer or any server. The user can delete any snapshot on the options page; uninstalling removes all data.
+Snapshots are saved with chrome.storage.local, only on the user's device, so they survive browser restarts. A snapshot contains its name and save time, each group's name, color and collapsed state, and the URLs of the pages in each group with any nickname the user set. chrome.storage.session holds, while the browser is open, which restored tab has which nickname, so the nickname can be applied again if the page changes its own title. With auto sync on (default; a switch on the options page), the same data is also kept in chrome.storage.sync so it follows the user's own Chrome account to their other computers. Nothing is sent to the developer or any other server. The user can delete any snapshot on the options page; uninstalling removes all data.
 
 ## unlimitedStorage justification
 
@@ -36,4 +36,4 @@ No, I am not using remote code. All JavaScript, including the React and HeroUI l
 
 ## Data usage
 
-The extension stores tab URLs, group names and user-entered names locally on the user's device only. No data is transmitted to the developer or any third party, so no user data is collected, sold, or used for purposes unrelated to saving and restoring tab groups.
+The extension stores tab URLs, group names and user-entered names locally on the user's device, and, while auto sync is on (the default, can be turned off on the options page), in their own Chrome account through Chrome sync (chrome.storage.sync). No data is transmitted to the developer or any third party, so no user data is collected, sold, or used for purposes unrelated to saving and restoring tab groups.

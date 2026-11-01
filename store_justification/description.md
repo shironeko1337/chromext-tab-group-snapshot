@@ -1,55 +1,38 @@
-Save your tab groups as snapshots and bring them back in one click.
+Save your Chrome tab groups as snapshots and bring them back in one click.
 
-Snapshot Groups is for people who organize their work in Chrome tab groups: a "Research" group, a "Work" group, a "Trip planning" group. Save all of your open groups as a named snapshot, and restore that snapshot later to get every group back with its pages, name and color.
+Keep a "Work" set, a "Research" set and a "Trip" set of tab groups, and switch between them whenever you like. A snapshot remembers each group's name and color and the address of every page in it.
 
 
-HOW IT WORKS
+1. SAVE YOUR GROUPS
+Click the toolbar button, type a name and press Enter. Leave the name empty to use today's date, like "10/31/2026 Groups".
+• Saves the groups in the current window, or in all windows with the "Snapshot groups in all windows" switch.
+• Ungrouped tabs are ignored, and duplicate pages are saved once.
 
-Save
-• Click the toolbar button, type a name (or leave it empty to use today's date, like "10/31/2026 Groups") and press Enter.
-• Every open tab group in every window is saved: the group's name, color and collapsed state, and the address of each page in it.
-• Duplicate pages in a group are saved once.
-• Tabs that are not in a group are ignored.
+2. RESTORE THEM LATER
+Click the toolbar button and pick a snapshot.
+• Groups that are already open are topped up with any missing pages. Nothing is closed, and open tabs keep their history.
+• Groups that are not open are recreated with their pages, name and color.
+• Your other groups and ungrouped tabs are left alone.
 
-Restore
-• Click a snapshot in the toolbar menu.
-• If a group with the same name is already open, it is updated: any saved pages that are missing are opened and added to it. Nothing is closed and your open tabs keep their history.
-• If a group is not open, it is recreated with its pages, name and color.
-• Your other groups and ungrouped tabs are never touched.
+3. FINE-TUNE A SNAPSHOT
+Open the options page and click Update on a snapshot.
+• Rename the snapshot, rename or recolor its groups, or delete a group.
+• Edit, add, reorder or remove the pages in each group.
+• Give a page a nickname that replaces its tab title when restored. A single space hides the title and keeps only the site icon, which is handy for crowded tab strips.
 
-Manage
-• The options page lists all of your snapshots.
-• Rename a snapshot.
-• Rename a group or change its color.
-• See every saved page, grouped the same way as in Chrome.
-• Delete snapshots you no longer need.
-
-Page nicknames (optional)
-• Give any saved page a nickname, and when you restore the snapshot that tab shows your nickname instead of the page's own title.
-• Use a single space as the nickname to hide the title and keep only the site icon, which saves room when you have many tabs open.
-• Leave the nickname empty to keep the page's normal title.
-• Nicknames need permission to change the title of pages. Chrome asks for it only the first time you save a nickname, and the rest of the extension works without it.
-• Chrome does not allow extensions to change the title of its own pages (such as chrome:// pages) or the Chrome Web Store.
+4. USE THEM ON ALL YOUR COMPUTERS
+Auto sync (on by default) keeps your snapshots in your Chrome account, so they appear wherever you are signed in to Chrome. Edits and deletions on one computer reach the others. A progress bar shows how much of Chrome's 100 KB sync space you use; past that, snapshots are saved on this computer only. Turn auto sync off on the options page anytime.
 
 
 PRIVACY
-
-• Snapshots are stored only on your computer, in Chrome's local extension storage.
-• Nothing is synced, uploaded or sent to the developer or anyone else.
-• No accounts, no tracking, no ads.
-• Uninstalling the extension deletes all of its data.
-
+• Snapshots are saved on your computer and, with auto sync on, in your own Chrome account. Nothing is sent to the developer or anyone else.
+• No accounts, no tracking, no ads. Uninstalling deletes all data.
 
 PERMISSIONS
-
-• Tab groups: read your groups when saving and create or update them when restoring.
-• Tabs: read the address of each tab in a group, and open saved pages when restoring.
-• Storage: keep your snapshots on your computer.
-• Scripting, and optional access to websites: used only to show page nicknames, by setting the title of tabs the extension restored. Asked for only if you use nicknames.
-
+• Tab groups and tabs: read your groups and their page addresses when saving, open and group pages when restoring.
+• Storage: keep your snapshots.
+• Scripting and optional site access: only for page nicknames, to set the title of tabs the extension restored. Chrome asks for it the first time you save a nickname. Chrome's own pages (chrome://, the Web Store) can't be renamed.
 
 TIPS
-
-• Name the groups in Chrome before saving. Restore matches groups by name, so a named group is updated in place instead of being opened a second time.
-• Chrome's own saved groups that are currently closed can't be seen by extensions. Open such a group first if you want a restore to update it instead of creating a new one.
-• Light and dark mode follow your system setting.
+• Name your groups in Chrome before saving. Restore matches groups by name, so named groups are updated in place instead of opened twice.
+• Closed groups in Chrome's own saved-groups list are invisible to extensions. Reopen one first if you want a restore to update it.

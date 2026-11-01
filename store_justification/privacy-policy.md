@@ -6,7 +6,7 @@ Snapshot Groups is a Chrome extension that saves snapshots of your tab groups an
 
 ## Summary
 
-All data stays on your computer. The extension does not send any data to the developer or to anyone else, has no servers, and contains no analytics, tracking or advertising.
+Your data is stored on your computer and, with auto sync on, in your own Chrome account. The extension does not send any data to the developer, has no servers, and contains no analytics, tracking or advertising.
 
 ## What the extension stores
 
@@ -26,7 +26,9 @@ The stored data is used only to show your snapshots and to restore your tab grou
 
 ## Sharing
 
-The data is never transmitted off your device. It is not sold, shared with or transferred to the developer or any third party, and it is not synced to your Google account.
+The data is not sold, shared with or transferred to the developer or any third party.
+
+Auto sync is on by default. While it is on, your snapshots are also stored in Chrome's sync storage (chrome.storage.sync), which Chrome keeps in your Google account so they appear on your other computers where you are signed in to Chrome with sync turned on. This copy is handled by Google under your Google account settings and Google's privacy policy. You can turn auto sync off on the extension's options page; snapshots are then kept on this computer only. To remove the copy from your account, delete your snapshots while auto sync is on, or clear Chrome sync data in your Google account.
 
 ## Permissions
 

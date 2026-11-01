@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { AlertDialog, Button, Card } from '@heroui/react';
+import { AlertDialog, Button, Card, Spinner } from '@heroui/react';
 import { deleteSnapshot, displayName, listSnapshots } from '../storage.js';
 import { EditSnapshotModal } from './EditSnapshotModal.jsx';
+import { SyncCard } from './SyncCard.jsx';
+import { Help } from './Help.jsx';
+import { syncBeforeShowing } from '../messaging.js';
 
 export function Options() {
   const [snapshots, setSnapshots] = useState(null);
@@ -10,7 +13,8 @@ export function Options() {
 
   useEffect(() => {
     const refresh = async () => setSnapshots(await listSnapshots());
-    refresh();
+    // Pull the latest snapshots from the Chrome account first.
+    syncBeforeShowing().then(refresh);
     // Re-render on any storage change (rename, delete, or a save from the popup).
     const onChanged = (_changes, area) => area === 'local' && refresh();
     chrome.storage.onChanged.addListener(onChanged);
@@ -25,7 +29,19 @@ export function Options() {
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-8">
-      <h1 className="text-2xl font-semibold">Snapshots</h1>
+      <div className="flex items-center gap-2">
+        <h1 className="text-2xl font-semibold">Snapshots</h1>
+        <Help label="About snapshots">
+          Each snapshot is a saved set of tab groups: their names and colors, and the address (URL) of each
+          page in them. Only URLs are kept, not the pages' history, scroll position or anything you typed.
+        </Help>
+      </div>
+
+      {snapshots == null && (
+        <div className="flex items-center gap-2 text-muted">
+          <Spinner size="sm" /> Syncing...
+        </div>
+      )}
 
       {snapshots?.length === 0 && (
         <p className="text-muted">No snapshots yet. Use the toolbar button to save your tab groups.</p>
@@ -45,6 +61,10 @@ export function Options() {
           </Button>
         </Card>
       ))}
+
+      <div className="mt-4">
+        <SyncCard />
+      </div>
 
       <EditSnapshotModal snapshotId={editingId} onClose={() => setEditingId(null)} />
 
